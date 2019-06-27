@@ -1,0 +1,3 @@
+django-cleanup
+mysql
+django_tables2
