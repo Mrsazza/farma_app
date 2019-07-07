@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+</br>
+
+<div class="container">
+  <div class="row ">
+    
+   <form method="post" enctype="multipart/form-data" id="AddEntity">
+    {% csrf_token %}
+    {{ form.media }}
+    <div class="form-row">
+      <div class="form-group   col-md-6 mb-0 align-self-center">
+          {{ form.refno|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+        {{ form.slno|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+        {{ form.date|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+          {{ form.agent|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+          {{ form.manu_name|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+          {{ form.batch_no|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+          {{ form.product|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+          {{ form.mata_name|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+          {{ form.mfgdate|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+          {{ form.expdate|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+          {{ form.amount|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+          {{ form.consumption|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+        {{ form.unit|as_crispy_field }}
+        </div>
+      <div class="form-group   col-md-6 mb-0">
+          {{ form.coa|as_crispy_field }}
+      </div>
+      <div class="form-group   col-md-6 mb-0">
+          {{ form.msds|as_crispy_field }}
+      </div>
+      <div class="form-group  col-md-6 mb-0">
+          {{ form.moa|as_crispy_field }}
+      </div>
+    
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+  </div>
+</div>
+
+   
+
+{% endblock %}
