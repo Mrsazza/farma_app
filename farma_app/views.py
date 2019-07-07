@@ -4,6 +4,7 @@ from django_tables2 import RequestConfig
 from .models import ItemTable
 from django.core.paginator import InvalidPage
 from django.db.models import F
+from .forms import PersonForm
 
 
 # Create your views here.
@@ -29,4 +30,20 @@ def index(request):
         my_models_table.paginate(page=1, per_page=10)
 
     template_vars = {'table': my_models_table}
+        
     return render(request, "index.html", template_vars)
+
+def add(request):
+     
+    # if this is a POST request we need to process the form data
+    form =PersonForm()
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = PersonForm(request.POST, request.FILES)
+        # check whether it's valid:
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+        else:
+            form = PersonForm()
+    return render(request, "add.html",{'form':form})

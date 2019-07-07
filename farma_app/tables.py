@@ -8,13 +8,19 @@ class items(tables.Table):
     class Meta:
 
         model = ItemTable
-        fields = ('id', 'refno', 'slno', 'date', 'mata_name', 'manu_name', 'batch_no', 'product', 'agent', 'mfgdate', 'expdate', 'amount', 'consumption', 'stock', 'coa', 'msds', 'moa', 'to_exp', 'edit', 'delete',)
+        fields = ('id', 'refno', 'slno', 'date', 'mata_name', 'manu_name', 'batch_no', 'product', 'agent', 'mfgdate', 'expdate', 'amount','unit', 'consumption','unit', 'stock','unit', 'coa', 'msds', 'moa', 'to_exp')
         attrs = {
-            'class': 'table  table-bordered table-hover table-striped ',
+            'class': 'table table-bordered table-hover',
             'thead': {
-                'class': 'thead-light mytable '
+                'class': 'thead-light '
+            },
+            'th':{
+                'class': 'mytable'
+            },
+            'tbody':{
+                'class':''
             }
 
         }
-
+       
 

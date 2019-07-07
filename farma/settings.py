@@ -40,7 +40,17 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'django_tables2',
     'farma_app',
+    'crispy_forms',
+    'bootstrap_datepicker_plus',
+    'bootstrap4',
+    'import_export',
+    'django_filters',
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

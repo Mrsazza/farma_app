@@ -2,9 +2,29 @@ from django.db import models
 import datetime
 import re
 from django.db.models import F
+import os
 
 # Create your models here.
+class Unit(models.Model):
+    units= models.CharField(max_length=30)
+    def __str__(self):
+        return self.units
 
+def coa_file_name(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s_%s.%s" % ("COA", instance.slno, ext)
+    return os.path.join('coa', filename)
+
+def msds_file_name(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s_%s.%s" % ("MSDS", instance.slno, ext)
+    return os.path.join('msds', filename)
+
+def moa_file_name(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s_%s.%s" % ("MOA", instance.slno, ext)
+    return os.path.join('moa', filename)
+    
 class ItemTable(models.Model):
     refno = models.CharField("Reference No", max_length=50, unique=True, null=False)
     slno = models.CharField("Serial No", max_length=50, null=False)
@@ -18,9 +38,12 @@ class ItemTable(models.Model):
     expdate = models.DateField("EXP Date", null=True, blank=True)
     amount = models.DecimalField(max_digits=12, decimal_places=4, blank=True, null=True)
     consumption = models.DecimalField(max_digits=12, decimal_places=4, blank=True, null=True)
-    coa = models.FileField("Certificate of Analysis", upload_to='pdf/coa', blank=True, null=True)
-    msds = models.FileField(upload_to='pdf/msds', blank=True, null=True)
-    moa = models.FileField("Method of Analysis", upload_to='pdf/moa', blank=True, null=True)
+    unit = models.ForeignKey("Unit", on_delete = models.CASCADE)
+    coa = models.FileField("Certificate of Analysis", upload_to=coa_file_name, blank=True, null=True)
+    msds = models.FileField(upload_to=msds_file_name, blank=True, null=True)
+    moa = models.FileField("Method of Analysis", upload_to=moa_file_name, blank=True, null=True)
+
+
 
 # calculation of expire date
     def days_to_exp(self):
@@ -32,8 +55,8 @@ class ItemTable(models.Model):
                 if exp <= 365:
                     return exp, "days"
                 else:
-                    return  exp, "days,More than a year"
-            elif exp < 1 and exp > 0:
+                    return  exp, "days"
+            elif exp < 1 and exp >= 0:
                 return exp, "day, Today"
             elif exp <0:
                 return exp, "days,Expired"
